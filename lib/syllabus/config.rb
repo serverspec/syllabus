@@ -15,4 +15,12 @@ class Syllabus::Config
 
     @hosts
   end
+
+  def os_type(arg = nil)
+    if arg
+      @os_type = arg.kind_of?(Proc) ? arg.call : arg
+    end
+
+    @os_type
+  end
 end
