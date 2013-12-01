@@ -27,6 +27,15 @@ class Syllabus::Config
     @os_type
   end
 
+  def path(arg = nil)
+    if arg
+      @path = arg.kind_of?(Proc) ? arg.call : arg
+      SpecInfra::Configuration.path = @path
+    end
+
+    @path
+  end
+
   def method_missing(name, *args)
     command = Syllabus::Command.new(
       os_type: os_type,

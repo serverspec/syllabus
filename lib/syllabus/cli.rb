@@ -14,12 +14,14 @@ EOS
   end
 
   desc 'exec [--file FILE], [--type TYPE]', 'Execute commands against backend(s) according to a backend type'
-  option :type, default: 'exec'
-  option :file, default: 'syllabus.rb'
+  option :type,  default: 'exec'
+  option :file,  default: 'syllabus.rb'
+  option :level, default: 'info'
   def exec
     Syllabus::Core.run(
-      type: options[:type],
-      file: options[:file],
+      type:  options[:type],
+      file:  options[:file],
+      level: options[:level],
     )
   end
 end
