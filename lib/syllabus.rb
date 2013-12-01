@@ -3,6 +3,7 @@ module Syllabus
   require 'Syllabus/cli'
   require 'Syllabus/core'
   require 'Syllabus/config'
+  require 'Syllabus/backend'
   require 'Syllabus/command'
   require 'Syllabus/command/base'
   require 'Syllabus/command/darwin'
