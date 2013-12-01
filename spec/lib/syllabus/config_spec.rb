@@ -33,27 +33,43 @@ EOS
     context 'os_type are passed as a String' do
       let(:config) {
         <<EOS
-os_type 'redhat'
+os_type 'RedHat'
 EOS
       }
       subject {
         described_class.new(config)
       }
 
-      it { expect(subject.os_type).to be == 'redhat' }
+      it { expect(subject.os_type).to be == 'RedHat' }
     end
 
     context 'os_type are passed as a Proc' do
       let(:config) {
         <<EOS
-os_type -> { 'redhat' }
+os_type -> { 'RedHat' }
 EOS
       }
       subject {
         described_class.new(config)
       }
 
-      it { expect(subject.os_type).to be == 'redhat' }
+      it { expect(subject.os_type).to be == 'RedHat' }
     end
+  end
+
+  describe '#method_missing' do
+    let(:config) {
+      <<EOS
+install 'httpd'
+EOS
+    }
+    subject {
+      described_class.new(config)
+    }
+
+    it {
+      expect(subject.commands.length).to be == 1
+      expect(subject.commands.first).to  be_an_instance_of Syllabus::Command
+    }
   end
 end

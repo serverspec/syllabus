@@ -1,10 +1,13 @@
 class Syllabus::Config
+  attr_reader :commands
+
   def self.new_from_file(file)
     configuration = File.read(file)
     new(configuration, file)
   end
 
   def initialize(configuration, file = '')
+    @commands = []
     instance_eval(configuration, file)
   end
 
@@ -22,5 +25,14 @@ class Syllabus::Config
     end
 
     @os_type
+  end
+
+  def method_missing(name, *args)
+    command = Syllabus::Command.new(
+      os_type: os_type,
+      name:    name,
+      args:    args,
+    )
+    @commands.push(command)
   end
 end
