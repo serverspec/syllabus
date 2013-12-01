@@ -1,5 +1,5 @@
 class Syllabus::Core
   def self.run(args)
-    p args
+    config = Syllabus::Config.new_from_file(args[:file])
   end
 end
