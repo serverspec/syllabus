@@ -1,6 +1,55 @@
-# Syllabus
+# Syllabus [![BuildStatus](https://secure.travis-ci.org/kentaro/syllabus)](http://travis-ci.org/kentaro/syllabus)
 
-TODO: Write a gem description
+Syllabus is a consiguration management tool for the era of "immutable infrastructure." which just provides a thin abstraction layer onto plain shell script.
+
+## Commands
+
+### `init`
+
+`init` sets up files to start configuration management with Syllabus.
+
+```
+$ syllabus init
+```
+
+This creates `syllabus.rb` into the current working directory.
+
+### `exec`
+
+`exec` reads the configuration from the file specified by `--file` option and executes commands along with the type specified `--type` option.
+
+```
+$ syllabus exec --file examples/mac.rb --type Exec
+```
+
+`--type` can be either one of the type which are provided by [SpecInfra](https://github.com/mizzy/).
+
+## Configuration
+
+Syllabus provides a simple DSL to configure servers like below:
+
+```
+os_type 'Darwin'
+hosts   %[app1.example.com app2.example.com]
+path    '/path/to/bin'
+
+install 'httpd'
+install 'git'
+# ...
+```
+
+### Configuration for Syllabus
+
+There are serveral methods to configure Syllabus itself.
+
+  * `os_type`: The type of OS of the servers to be configured
+  * `hosts`: Servers to be configured by Syllabus
+  * `path`: `PATH` environment variable to be set on the servers
+
+### Configuration for Servers
+
+  * `install`: Specifies a package to be installed
+  * (TODO)
 
 ## Installation
 
@@ -15,10 +64,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install syllabus
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 

@@ -7,6 +7,8 @@ class Syllabus::Config
   end
 
   def initialize(configuration, file = '')
+    @hosts    = nil
+    @os_type  = nil
     @commands = []
     instance_eval(configuration, file)
   end
