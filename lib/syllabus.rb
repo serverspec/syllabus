@@ -1,5 +1,5 @@
-require "syllabus/version"
-
 module Syllabus
-  # Your code goes here...
+  require 'syllabus/version'
+  require 'Syllabus/cli'
+  require 'Syllabus/core'
 end
