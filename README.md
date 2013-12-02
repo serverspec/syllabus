@@ -1,4 +1,4 @@
-# Syllabus [![BuildStatus](https://travis-ci.org/kentaro/syllabus.png)](http://travis-ci.org/kentaro/syllabus)
+# Syllabus [![BuildStatus](https://travis-ci.org/serverspec/syllabus.png)](http://travis-ci.org/serverspec/syllabus)
 
 Syllabus is a configuration management tool for the era of "immutable infrastructure." which just provides a thin abstraction layer onto plain shell script.
 
