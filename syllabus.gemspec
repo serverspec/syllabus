@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Syllabus::VERSION
   spec.authors       = ['Kentaro Kuribayashi']
   spec.email         = ['kentarok@gmail.com']
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Yet Another Configuration Management Tool in the Era of Immutable Infrastructure}
+  spec.summary       = %q{Yet Another Configuration Management Tool in the Era of Immutable Infrastructure}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
