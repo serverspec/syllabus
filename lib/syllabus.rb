@@ -12,12 +12,5 @@ module Syllabus
   require 'Syllabus/command/redhat'
 end
 
-# XXX: Workacount to avoid the dependency on RSpec
-require 'specinfra/configuration'
-module SpecInfra
-  class << self
-    def configuration
-      SpecInfra::Configuration
-    end
-  end
-end
+require 'specinfra'
+
