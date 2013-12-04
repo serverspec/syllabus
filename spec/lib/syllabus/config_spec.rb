@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe Syllabus::Config do
+  let(:backend) {
+    backend  = SpecInfra::Backend.backend_for('Exec')
+    commands = SpecInfra::Command::RedHat.new
+    backend.set_commands(commands)
+    backend
+  }
+
   describe '#hosts' do
     context 'Hosts are passed as an Array' do
       let(:config) {
@@ -9,7 +16,7 @@ hosts %w[foo bar baz]
 EOS
       }
       subject {
-        described_class.new(config)
+        described_class.new(backend: backend, config: config)
       }
 
       it { expect(subject.hosts).to be == %w[foo bar baz] }
@@ -22,38 +29,38 @@ hosts -> { %w[foo bar baz] }
 EOS
       }
       subject {
-        described_class.new(config)
+        described_class.new(backend: backend, config: config)
       }
 
       it { expect(subject.hosts).to be == %w[foo bar baz] }
     end
   end
 
-  describe '#os_type' do
-    context 'os_type are passed as a String' do
+  describe '#path' do
+    context 'path are passed as an Array' do
       let(:config) {
         <<EOS
-os_type 'RedHat'
+path %w[/bin /usr/bin]
 EOS
       }
       subject {
-        described_class.new(config)
+        described_class.new(backend: backend, config: config)
       }
 
-      it { expect(subject.os_type).to be == 'RedHat' }
+      it { expect(subject.path).to be == %w[/bin /usr/bin] }
     end
 
-    context 'os_type are passed as a Proc' do
+    context 'path are passed as a String' do
       let(:config) {
         <<EOS
-os_type -> { 'RedHat' }
+path '/bin:/usr/bin'
 EOS
       }
       subject {
-        described_class.new(config)
+        described_class.new(backend: backend, config: config)
       }
 
-      it { expect(subject.os_type).to be == 'RedHat' }
+      it { expect(subject.path).to be == %w[/bin /usr/bin] }
     end
   end
 
@@ -64,12 +71,12 @@ install 'httpd'
 EOS
     }
     subject {
-      described_class.new(config)
+      described_class.new(backend: backend, config: config)
     }
 
     it {
       expect(subject.commands.length).to be == 1
-      expect(subject.commands.first).to  be_an_instance_of Syllabus::Command
+      expect(subject.commands.first).to  be_an_instance_of String
     }
   end
 end
