@@ -29,7 +29,6 @@ $ syllabus exec --file examples/mac.rb --type Exec
 Syllabus provides a simple DSL to configure servers like below:
 
 ```
-os_type 'Darwin'
 hosts   %[app1.example.com app2.example.com]
 path    '/path/to/bin'
 
@@ -42,7 +41,6 @@ install 'git'
 
 There are serveral methods to configure Syllabus itself.
 
-  * `os_type`: The type of OS of the servers to be configured
   * `hosts`: Servers to be configured by Syllabus
   * `path`: `PATH` environment variable to be set on the servers
 
