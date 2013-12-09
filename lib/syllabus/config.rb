@@ -1,16 +1,16 @@
 class Syllabus::Config
   attr_reader :commands
 
-  def self.new_from_file(file)
-    configuration = File.read(file)
-    new(configuration, file)
+  def self.new_from_file(args)
+    config = File.read(args[:file])
+    new(config: config, file: args[:file], backend: args[:backend])
   end
 
-  def initialize(configuration, file = '')
+  def initialize(args)
+    @backend  = args[:backend]
     @hosts    = nil
-    @os_type  = nil
     @commands = []
-    instance_eval(configuration, file)
+    instance_eval(args[:config], args[:file] || '')
   end
 
   def hosts(arg = nil)
@@ -21,29 +21,16 @@ class Syllabus::Config
     @hosts
   end
 
-  def os_type(arg = nil)
-    if arg
-      @os_type = arg.kind_of?(Proc) ? arg.call : arg
-    end
-
-    @os_type
-  end
-
   def path(arg = nil)
     if arg
-      @path = arg.kind_of?(Proc) ? arg.call : arg
-      SpecInfra::Configuration.path = @path
+      @path = arg.kind_of?(Array) ? arg : arg.split(':')
     end
 
     @path
   end
 
   def method_missing(name, *args)
-    command = Syllabus::Command.new(
-      os_type: os_type,
-      name:    name,
-      args:    args,
-    )
+    command = @backend.commands.send(name, *args)
     @commands.push(command)
   end
 end

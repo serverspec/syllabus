@@ -1,11 +1,16 @@
+require 'specinfra'
+
 class Syllabus::Core
+  extend SpecInfra::Helper::Backend
+  extend SpecInfra::Helper::DetectOS
+
   def self.run(args)
-    config  = Syllabus::Config.new_from_file(args[:file])
-    backend = Syllabus::Backend.new(type: args[:type])
+    backend = backend_for(args[:type])
+    config  = Syllabus::Config.new_from_file(file: args[:file], backend: backend)
     logger  = Syllabus::Logger.new(level: args[:level])
 
     config.commands.each do |command|
-      result = backend.run_command(command.to_s)
+      result = backend.run_command(command)
       logger.log(command, result)
     end
   end
