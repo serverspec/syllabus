@@ -8,13 +8,13 @@ class Syllabus::CLI < Thor
 # This is a configuration file for syllabus.
 
 # Packages
-# package 'httpd'
+# install 'httpd'
 EOS
     File.write('syllabus.rb', configuration)
   end
 
   desc 'exec [--file FILE], [--type TYPE]', 'Execute commands against backend(s) according to a backend type'
-  option :type,  default: 'exec'
+  option :type,  default: 'Exec'
   option :file,  default: 'syllabus.rb'
   option :level, default: 'info'
   def exec
